@@ -3,7 +3,7 @@ const Course = require('../models/course');
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const courses = await Course.getAll();
+  const courses = await Course.find().lean();
   res.render('courses', {
     title: 'Courses',
     isCourses: true,
@@ -16,7 +16,7 @@ router.get('/:id/edit', async (req, res) => {
     return res.redirect('/');
   }
 
-  const course = await Course.getById(req.params.id);
+  const course = await Course.findById(req.params.id).lean();
   res.render('course-edit', {
     title: `Edit course ${course.title}`,
     course,
@@ -24,12 +24,27 @@ router.get('/:id/edit', async (req, res) => {
 });
 
 router.post('/edit', async (req, res) => {
-  await Course.update(req.body);
+  const { id } = req.body;
+  delete req.body.id; // To avoid adding unnecessary id field, as MDB ads it by _id
+
+  if (id.match(/^[0-9a-fA-F]{24}$/)) {
+    await Course.findByIdAndUpdate(id, req.body);
+  }
   res.redirect('/courses');
 });
 
+router.post('/remove', async (req, res) => {
+  Course.deleteOne({
+    _id: req.body.id,
+  })
+    .then(() => {
+      res.redirect('/courses');
+    })
+    .catch((err) => console.log(err));
+});
+
 router.get('/:id', async (req, res) => {
-  const course = await Course.getById(req.params.id);
+  const course = await Course.findById(req.params.id).lean();
 
   res.render('course', {
     layout: 'empty',
