@@ -4,3 +4,18 @@ document.querySelectorAll('.price').forEach((node) => {
     style: 'currency',
   }).format(+node.textContent);
 });
+
+const $cart = document.querySelector('#cart');
+if ($cart) {
+  $cart.addEventListener('click', (event) => {
+    if (event.target.classList.contains('js-remove')) {
+      const id = event.target.dataset.id;
+
+      fetch('/cart/' + id, {
+        method: 'DELETE',
+      }).then(() => {
+        window.location.reload();
+      });
+    }
+  });
+}

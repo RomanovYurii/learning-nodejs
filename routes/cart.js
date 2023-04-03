@@ -15,8 +15,13 @@ router.get('/', async (req, res) => {
     title: 'Cart',
     isCart: true,
     courses: cart.courses,
-    price: cart.price
+    price: cart.price,
   });
+});
+
+router.delete('/:id', async (req, res) => {
+  const cart = await Cart.remove(req.params.id);
+  res.status(200).json(cart);
 });
 
 module.exports = router;

@@ -4,6 +4,15 @@ const fs = require('fs');
 const PATH = path.join(__dirname, '..', 'data', 'cart.json');
 
 class Cart {
+  static async writeCart(cart) {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(PATH, JSON.stringify(cart), (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+
   static async add(course) {
     const cart = await Cart.fetch();
 
@@ -21,13 +30,7 @@ class Cart {
     }
 
     cart.price += +course.price;
-
-    return new Promise((resolve, reject) => {
-      fs.writeFile(PATH, JSON.stringify(cart), (err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
+    return await Cart.writeCart(cart);
   }
 
   static async fetch() {
@@ -40,6 +43,25 @@ class Cart {
         }
       });
     });
+  }
+
+  static async remove(id) {
+    const cart = await Cart.fetch();
+
+    const courseIdx = cart.courses.findIndex((c) => c.id === id);
+    const course = cart.courses[courseIdx];
+
+    if (course.count === 1) {
+      // delete
+      cart.courses.splice(courseIdx, 1);
+    } else {
+      // decrement
+      cart.courses[courseIdx].count--;
+    }
+
+    cart.price -= course.price;
+    await Cart.writeCart(cart);
+    return cart;
   }
 }
 
