@@ -1,11 +1,14 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const mongoose = require('mongoose');
+
 const homeRoutes = require('./routes/home');
 const addRoutes = require('./routes/add');
 const coursesRoutes = require('./routes/courses');
 const cartRouters = require('./routes/cart');
 
+require('dotenv').config();
 const app = express();
 
 const hbs = exphbs.create({
@@ -26,6 +29,17 @@ app.use('/cart', cartRouters);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`Server started on PORT: ${PORT}`);
-});
+const start = async () => {
+  try {
+    await mongoose.connect(process.env.DB_CONNECTION_STRING, {
+      useNewUrlParser: true,
+    });
+    app.listen(PORT, () => {
+      console.log(`Server started on PORT: ${PORT}`);
+    });
+  } catch (err) {
+    console.err(err);
+  }
+};
+
+start();

@@ -13,9 +13,7 @@ if ($cart) {
 
       fetch('/cart/' + id, {
         method: 'DELETE',
-      }).then(() => {
-        window.location.reload();
-      });
+      }).then(() => window.location.reload());
     }
   });
 }
