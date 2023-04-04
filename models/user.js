@@ -33,22 +33,40 @@ const userSchema = new Schema(
 );
 
 userSchema.method('addToCart', function (course) {
-  const _items = [...this.cart.items];
-  const courseIdx = _items.findIndex(
+  const items = [...this.cart.items];
+  const courseIdx = items.findIndex(
     (c) => c.courseId.toString() === course._id.toString()
   );
 
   if (courseIdx >= 0) {
-    const _course = _items[courseIdx];
-    _items[courseIdx].count = _course.count + 1;
+    const _course = items[courseIdx];
+    items[courseIdx].count = _course.count + 1;
   } else {
-    _items.push({
+    items.push({
       courseId: course._id,
       count: 1,
     });
   }
 
-  this.cart = { ...this.cart, items: _items };
+  this.cart = { items };
+  return this.save();
+});
+
+userSchema.method('removeFromCartById', function (id) {
+  const items = [...this.cart.items];
+  const courseIdx = items.findIndex(
+    (c) => c.courseId.toString() === id.toString()
+  );
+
+  if (courseIdx >= 0) {
+    if (items[courseIdx].count === 1) {
+      items.splice(courseIdx, 1);
+    } else {
+      items[courseIdx].count--;
+    }
+  }
+
+  this.cart = { items };
   return this.save();
 });
 
