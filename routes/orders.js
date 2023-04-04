@@ -4,22 +4,33 @@ const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const orders = await Order.find({
+    let orders = await Order.find({
       'user.userId': req.user._id,
-    })
-      .populate('user.userId')
-      .lean();
+    }).populate('user.userId');
+
+    orders = orders.map((order) => {
+      const _order = {};
+      _order.id = order.id;
+      _order.date = order.date;
+      _order.user = {
+        name: order.user.name,
+        email: order.user.userId.email,
+      };
+      _order.courses = order.courses.map((cart) => ({
+        count: cart.count,
+        title: cart.course.title,
+      }));
+      _order.price = order.courses.reduce(
+        (total, cart) => total + cart.count * cart.course.price,
+        0
+      );
+      return _order;
+    });
 
     res.render('orders', {
       isOrder: true,
       title: 'Orders',
-      orders: orders.map((o) => ({
-        ...o._doc,
-        price: o.courses.reduce(
-          (total, cart) => total + cart.count * cart.course.price,
-          0
-        ),
-      })),
+      orders,
     });
   } catch (e) {
     console.log(e);
