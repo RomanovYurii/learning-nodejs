@@ -70,4 +70,9 @@ userSchema.method('removeFromCartById', function (id) {
   return this.save();
 });
 
+userSchema.method('clearCart', function () {
+  this.cart = { items: [] };
+  this.save();
+});
+
 module.exports = model('User', userSchema);
