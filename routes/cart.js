@@ -9,12 +9,23 @@ router.post('/add', async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const cart = await Cart.fetch();
+  const user = await req.user.populate('cart.items.courseId');
+
+  const courses = user.cart.items.map((c) => ({
+    ...c.courseId._doc,
+    count: c.count,
+  }));
+
+  const price = courses.reduce(
+    (total, course) => (total + course.count * course.price),
+    0
+  );
+
   res.render('cart', {
     title: 'Cart',
     isCart: true,
-    courses: cart.courses,
-    price: cart.price,
+    courses: courses,
+    price,
   });
 });
 
