@@ -10,6 +10,10 @@ const course = new Schema({
     required: true,
   },
   img: String,
+  authorId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
 });
 
 module.exports = model('Course', course);

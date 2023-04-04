@@ -27,4 +27,24 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.method('addToCart', function (course) {
+  const _items = [...this.cart.items];
+  const courseIdx = _items.findIndex(
+    (c) => c.courseId.toString() === course._id.toString()
+  );
+
+  if (courseIdx >= 0) {
+    const _course = _items[courseIdx];
+    _items[courseIdx].count = _course.count + 1;
+  } else {
+    _items.push({
+      courseId: course._id,
+      count: 1,
+    });
+  }
+
+  this.cart = { ...this.cart, items: _items };
+  return this.save();
+});
+
 module.exports = model('User', userSchema);
