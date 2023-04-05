@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
+const MongoStore = require('connect-mongodb-session')(session);
 const { connect } = require('mongoose');
 
 const homeRoutes = require('./routes/home');
@@ -14,11 +15,15 @@ const authRoutes = require('./routes/auth');
 const varMiddleware = require('./middleware/variables');
 
 require('dotenv').config();
-const app = express();
 
+const app = express();
 const hbs = exphbs.create({
   defaultLayout: 'main',
   extname: 'hbs',
+});
+const store = new MongoStore({
+  collection: 'sessions',
+  uri: process.env.DB_CONNECTION_STRING,
 });
 
 app.engine('hbs', hbs.engine);
@@ -32,6 +37,7 @@ app.use(
     secret: 'secret',
     resave: false,
     saveUninitialized: false,
+    store,
   })
 );
 app.use(varMiddleware);
