@@ -28,6 +28,11 @@
             <h1>Sign up</h1>
             <form action="/auth/signup" method="POST">
                 <div class="input-field">
+                    <input id="name" name="name" type="text" class="validate" required>
+                    <label for="name">Name</label>
+                    <span class="helper-text" data-error="Enter name"></span>
+                </div>
+                <div class="input-field">
                     <input id="remail" name="email" type="email" class="validate" required>
                     <label for="remail">Email</label>
                     <span class="helper-text" data-error="Enter email"></span>
@@ -39,8 +44,8 @@
                 </div>
                 <div class="input-field">
                     <input id="confirm" name="confirm" type="password" class="validate" required>
-                    <label for="confirm">Password</label>
-                    <span class="helper-text" data-error="Enter password"></span>
+                    <label for="confirm">Confirm password</label>
+                    <span class="helper-text" data-error="Enter confirmation password"></span>
                 </div>
 
                 <button class="btn btn-primary">Sign up</button>
