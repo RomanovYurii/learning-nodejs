@@ -39,7 +39,7 @@
                 <p class="alert">{{signupError}}</p>
             {{/if}}
             <h1>Sign up</h1>
-            <form action="/auth/signup" method="POST">
+            <form action="/auth/signup" method="POST" novalidate>
                 <input type="hidden" name="_csrf" value="{{csrf}}">
                 <div class="input-field">
                     <input id="name" name="name" type="text" class="validate" required>
