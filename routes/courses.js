@@ -1,11 +1,10 @@
 const { Router } = require('express');
 const Course = require('../models/course');
+const auth = require('../middleware/auth');
 const router = Router();
 
 router.get('/', async (req, res) => {
-  const courses = await Course.find()
-    .populate('authorId', 'email name')
-    .lean();
+  const courses = await Course.find().populate('authorId', 'email name').lean();
 
   res.render('courses', {
     title: 'Courses',
@@ -14,7 +13,7 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/:id/edit', async (req, res) => {
+router.get('/:id/edit', auth, async (req, res) => {
   if (!req.query.allow) {
     return res.redirect('/');
   }
@@ -26,7 +25,7 @@ router.get('/:id/edit', async (req, res) => {
   });
 });
 
-router.post('/edit', async (req, res) => {
+router.post('/edit', auth, async (req, res) => {
   const { id } = req.body;
   delete req.body.id; // To avoid adding unnecessary id field, as MDB ads it by _id
 
@@ -36,7 +35,7 @@ router.post('/edit', async (req, res) => {
   res.redirect('/courses');
 });
 
-router.post('/remove', async (req, res) => {
+router.post('/remove', auth, async (req, res) => {
   Course.deleteOne({
     _id: req.body.id,
   })
