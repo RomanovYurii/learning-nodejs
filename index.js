@@ -13,6 +13,7 @@ const ordersRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
 
 const varMiddleware = require('./middleware/variables');
+const userMiddleware = require('./middleware/user');
 
 require('dotenv').config();
 
@@ -41,6 +42,7 @@ app.use(
   })
 );
 app.use(varMiddleware);
+app.use(userMiddleware);
 
 app.use('/', homeRoutes);
 app.use('/add', addRoutes);
