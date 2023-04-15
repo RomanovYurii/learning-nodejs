@@ -7,6 +7,8 @@ router.get('/login', async (req, res) => {
   res.render('auth/login', {
     title: 'Authorisation',
     isLogin: true,
+    loginError: req.flash('loginError'),
+    signupError: req.flash('signupError'),
   });
 });
 
@@ -35,11 +37,11 @@ router.post('/login', async (req, res) => {
           res.redirect('/');
         });
       } else {
-        // ToDo: send error message
+        req.flash('loginError', 'Password is incorrect');
         res.redirect('/auth/login#login');
       }
     } else {
-      // ToDo: send error message
+      req.flash('loginError', 'No user found with this email');
       res.redirect('/auth/login#login');
     }
   } catch (e) {
@@ -55,7 +57,8 @@ router.post('/signup', async (req, res) => {
     const candidate = await User.findOne({ email });
 
     if (candidate) {
-      res.redirect('/auth/login#register');
+      req.flash('signupError', 'User with this email already exists');
+      res.redirect('/auth/login#signup');
     } else {
       const hashPassword = await bcrypt.hash(password, 10);
       const user = new User({

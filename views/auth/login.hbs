@@ -8,6 +8,9 @@
         </div>
 
         <div id="login" class="col s6 offset-s3">
+            {{#if loginError}}
+                <p class="alert">{{loginError}}</p>
+            {{/if}}
             <h1>Login</h1>
             <form action="/auth/login" method="POST">
                 <input type="hidden" name="_csrf" value="{{csrf}}">
@@ -28,6 +31,9 @@
             </form>
         </div>
         <div id="signup" class="col s6 offset-s3">
+            {{#if signupError}}
+                <p class="alert">{{signupError}}</p>
+            {{/if}}
             <h1>Sign up</h1>
             <form action="/auth/signup" method="POST">
                 <input type="hidden" name="_csrf" value="{{csrf}}">
