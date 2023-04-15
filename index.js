@@ -20,6 +20,7 @@ const signupRoutes = require('./routes/auth/signup');
 
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
+const error404Middleware = require('./middleware/error404');
 
 require('dotenv').config();
 
@@ -63,6 +64,7 @@ app.use('/auth/logout', logoutRoutes);
 app.use('/auth/password', passwordRoutes);
 app.use('/auth/reset', resetRoutes);
 app.use('/auth/signup', signupRoutes);
+app.use(error404Middleware);
 
 const PORT = process.env.PORT || 3000;
 

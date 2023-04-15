@@ -59,3 +59,12 @@ exports.loginValidators = [
     }
   }),
 ];
+
+exports.courseValidators = [
+  body('title')
+    .isLength({ min: 3 })
+    .withMessage('Minimum length of a course title is 3 characters')
+    .trim(),
+  body('price').isNumeric().withMessage('Provided price is incorrect'),
+  body('img', 'Provided url is incorrect').isURL(),
+];

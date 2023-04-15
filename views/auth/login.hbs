@@ -12,7 +12,7 @@
                 <p class="alert">{{loginError}}</p>
             {{/if}}
             <h1>Login</h1>
-            <form action="/auth/login" method="POST" novalidate>
+            <form action="/auth/login" method="POST">
                 <input type="hidden" name="_csrf" value="{{csrf}}">
 
                 <div class="input-field">
