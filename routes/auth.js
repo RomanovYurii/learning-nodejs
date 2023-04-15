@@ -16,15 +16,34 @@ router.get('/logout', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  req.session.user = await User.findById('642c45e69ead8026ab508385');
-  req.session.isAuthenticated = true;
-  req.session.save((err) => {
-    if (err) {
-      throw err;
-    }
+  try {
+    const { email, password } = req.body;
 
-    res.redirect('/');
-  });
+    const candidate = await User.findOne({ email });
+    if (candidate) {
+      const passwordsMatch = password === candidate.password;
+
+      if (passwordsMatch) {
+        req.session.user = candidate;
+        req.session.isAuthenticated = true;
+        req.session.save((err) => {
+          if (err) {
+            throw err;
+          }
+
+          res.redirect('/');
+        });
+      } else {
+        // ToDo: send error message
+        res.redirect('/auth/login#login');
+      }
+    } else {
+      // ToDo: send error message
+      res.redirect('/auth/login#login');
+    }
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.post('/signup', async (req, res) => {
