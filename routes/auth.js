@@ -1,7 +1,12 @@
 const { Router } = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const sgMail = require('@sendgrid/mail');
+const signupEmail = require('../emails/signup');
 const router = Router();
+
+require('dotenv').config();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.get('/login', async (req, res) => {
   res.render('auth/login', {
@@ -68,7 +73,9 @@ router.post('/signup', async (req, res) => {
         cart: { items: [] },
       });
       await user.save();
-      res.redirect('/auth/login#login');
+      sgMail
+        .send(signupEmail(email))
+        .then(() => res.redirect('/auth/login#login'));
     }
   } catch (e) {
     console.log(e);
