@@ -10,11 +10,14 @@
         <div id="login" class="col s6 offset-s3">
             <h1>Login</h1>
             <form action="/auth/login" method="POST">
+                <input type="hidden" name="_csrf" value="{{csrf}}">
+
                 <div class="input-field">
                     <input id="email" name="email" type="email" class="validate" required>
                     <label for="email">Email</label>
                     <span class="helper-text" data-error="Enter email"></span>
                 </div>
+
                 <div class="input-field">
                     <input id="password" name="password" type="password" class="validate" required>
                     <label for="password">Password</label>
@@ -27,6 +30,7 @@
         <div id="signup" class="col s6 offset-s3">
             <h1>Sign up</h1>
             <form action="/auth/signup" method="POST">
+                <input type="hidden" name="_csrf" value="{{csrf}}">
                 <div class="input-field">
                     <input id="name" name="name" type="text" class="validate" required>
                     <label for="name">Name</label>
