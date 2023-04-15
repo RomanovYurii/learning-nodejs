@@ -12,7 +12,11 @@ const addRoutes = require('./routes/add');
 const coursesRoutes = require('./routes/courses');
 const cartRoutes = require('./routes/cart');
 const ordersRoutes = require('./routes/orders');
-const authRoutes = require('./routes/auth');
+const loginRoutes = require('./routes/auth/login');
+const logoutRoutes = require('./routes/auth/logout');
+const passwordRoutes = require('./routes/auth/password');
+const resetRoutes = require('./routes/auth/reset');
+const signupRoutes = require('./routes/auth/signup');
 
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
@@ -53,7 +57,11 @@ app.use('/add', addRoutes);
 app.use('/courses', coursesRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', ordersRoutes);
-app.use('/auth', authRoutes);
+app.use('/auth/login', loginRoutes);
+app.use('/auth/logout', logoutRoutes);
+app.use('/auth/password', passwordRoutes);
+app.use('/auth/reset', resetRoutes);
+app.use('/auth/signup', signupRoutes);
 
 const PORT = process.env.PORT || 3000;
 
