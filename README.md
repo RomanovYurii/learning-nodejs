@@ -2,7 +2,7 @@
 
 This application was built by me, [Yurii Romanov](https://www.linkedin.com/in/yurii-romanov/)
 
-Making this application I was learning how to use NodeJS, ExpressJS, Handlebars and other useful tools for JavaScript backend development.
+Making this application I was learning how to use `NodeJS, ExpressJS, Handlebars, MongoDB with Mongoose` and other useful tools for JavaScript backend development.
 
 Working application is deployed on [Render](https://dashboard.render.com/) and is accessible by the following link: https://learn-nodejs.onrender.com/
 
@@ -16,4 +16,4 @@ In real world I would also consider the following changes:
 - Add webpack for build optimization
 - Move images folder to some external storage or at least added functionality to delete previous profile images of users
 
-However as far as this was only the learning pet-project I am not going to deeply optimize or refactor it.
+However, as far as this was only the learning pet-project I am not going to deeply optimize or refactor it.
