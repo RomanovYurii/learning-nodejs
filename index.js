@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const exphbs = require('express-handlebars');
@@ -55,6 +56,7 @@ app.use(
   })
 );
 app.use(profilePictureMiddleware.single('profilePicture'));
+app.use(cors());
 app.use(csrf());
 app.use(flash());
 app.use(helmet());
