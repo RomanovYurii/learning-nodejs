@@ -1041,6 +1041,11 @@ cors@^2.8.5:
     object-assign "^4"
     vary "^1"
 
+csp-header@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/csp-header/-/csp-header-5.1.0.tgz#6aa7aecbc2b4118e808f8e50106dc918c4f16f62"
+  integrity sha512-HIKOtf0g4LrWSZKKZA/VSvjU7wLFknXW31NqvCfkkAU6g6RObEbR+E1TLThx4nfE1ozY4be9/5p+u6hmyVi7OQ==
+
 csrf@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/csrf/-/csrf-3.1.0.tgz#ec75e9656d004d674b8ef5ba47b41fbfd6cb9c30"
@@ -1125,6 +1130,14 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
+
+express-csp-header@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/express-csp-header/-/express-csp-header-5.1.0.tgz#0f9923bb9d80a17593d325091e2f44c6f8da90e7"
+  integrity sha512-+5pXxmnwklwbJuiMZSbCYwihNttSOqKsp5WhLUaO8cpuRE4CLOBFJEpoanDbbr+S4+FF/TOmHd7sVDgHSzVxWg==
+  dependencies:
+    csp-header "^5.1.0"
+    psl "1.8.0"
 
 express-handlebars@^7.0.4:
   version "7.0.4"
@@ -1681,6 +1694,11 @@ proxy-addr@~2.0.7:
   dependencies:
     forwarded "0.2.0"
     ipaddr.js "1.9.1"
+
+psl@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/psl/-/psl-1.8.0.tgz#9326f8bcfb013adcc005fdff056acce020e51c24"
+  integrity sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ==
 
 pstree.remy@^1.1.8:
   version "1.1.8"

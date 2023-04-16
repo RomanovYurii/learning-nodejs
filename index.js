@@ -7,6 +7,7 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const helmet = require('helmet');
 const compression = require('compression');
+const csp = require('express-csp-header');
 const MongoStore = require('connect-mongodb-session')(session);
 const { connect } = require('mongoose');
 
@@ -60,6 +61,12 @@ app.use(cors());
 app.use(csrf());
 app.use(flash());
 app.use(helmet());
+app.use(csp({
+  policies: {
+    'default-src': 'https:',
+    'img-src': 'https',
+  }
+}));
 app.use(compression());
 app.use(varMiddleware);
 app.use(userMiddleware);
