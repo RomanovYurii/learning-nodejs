@@ -12,8 +12,8 @@ This is not the best application I've ever wrote and most code pieces were writt
 - used .env file for storing the keys
 
 In real world I would also consider the following changes:
-- Switch to TypeScript as for such projects it would be incredibly useful to have a type checking process
-- Add webpack for build optimization
-- Move images folder to some external storage or at least added functionality to delete previous profile images of users
+- Switch to `TypeScript` as for such projects it would be incredibly useful to have a type checking process
+- Add `Webpack` for build optimization
+- Move images folder to some external storage or at least add functionality to delete previous profile images of users
 
 However, as far as this was only the learning pet-project I am not going to deeply optimize or refactor it.
