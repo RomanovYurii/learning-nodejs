@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
       title: 'Courses',
       isCourses: true,
       courses,
-      currentUserId: req.user._id.toString() ?? null,
+      currentUserId: req.user?._id.toString() ?? null,
     });
   } catch (e) {
     console.log(e);
