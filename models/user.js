@@ -13,6 +13,7 @@ const userSchema = new Schema(
     },
     resetToken: String,
     resetTokenExp: Date,
+    avatarUrl: String,
     cart: {
       items: [
         {

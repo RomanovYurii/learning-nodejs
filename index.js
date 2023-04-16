@@ -12,6 +12,7 @@ const addRoutes = require('./routes/add');
 const coursesRoutes = require('./routes/courses');
 const cartRoutes = require('./routes/cart');
 const ordersRoutes = require('./routes/orders');
+const profileRoutes = require('./routes/profile');
 const loginRoutes = require('./routes/auth/login');
 const logoutRoutes = require('./routes/auth/logout');
 const passwordRoutes = require('./routes/auth/password');
@@ -21,6 +22,7 @@ const signupRoutes = require('./routes/auth/signup');
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
 const error404Middleware = require('./middleware/error404');
+const profilePictureMiddleware = require('./middleware/profilePicture');
 
 require('dotenv').config();
 
@@ -40,6 +42,7 @@ app.set('view engine', 'hbs');
 app.set('views', 'views');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
@@ -49,6 +52,7 @@ app.use(
     store,
   })
 );
+app.use(profilePictureMiddleware.single('profilePicture'));
 app.use(csrf());
 app.use(flash());
 app.use(varMiddleware);
@@ -59,6 +63,7 @@ app.use('/add', addRoutes);
 app.use('/courses', coursesRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', ordersRoutes);
+app.use('/profile', profileRoutes);
 app.use('/auth/login', loginRoutes);
 app.use('/auth/logout', logoutRoutes);
 app.use('/auth/password', passwordRoutes);
