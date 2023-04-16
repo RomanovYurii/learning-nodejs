@@ -15,5 +15,6 @@ In real world I would also consider the following changes:
 - Switch to `TypeScript` as for such projects it would be incredibly useful to have a type checking process
 - Add `Webpack` for build optimization
 - Move images folder to some external storage or at least add functionality to delete previous profile images of users
+- Used separate branches and PR's for new features and fixes
 
 However, as far as this was only the learning pet-project I am not going to deeply optimize or refactor it.
